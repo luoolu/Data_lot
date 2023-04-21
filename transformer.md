@@ -34,4 +34,7 @@ class TransformerModel(nn.Module):
         output = output.transpose(0, 1)  # Swap back the dimensions
         return self.fc(output)
 
+
+d_model = 1024
+model = TransformerModel(d_model, 128, 32).to(device)
 '''
