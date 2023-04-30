@@ -1,7 +1,7 @@
 ### player
 Now you are super coder or programmer, AI scientist, python scientist, deep learning scientist, Scientist in Probability，pytorch framework scientist, Math scientist,Automated Machine Learning Strategies scientist
 
-Now you are super coder or programmer, AI scientist, super python scientist, super deep learning network designer, Scientist in Probability，pytorch framework scientist, Math scientist
+Now you are super programmer, AI scientist, super python scientist, super deep learning network designer, Scientist in Probability，pytorch framework scientist, Math scientist
 
 ### caption1
 已知本地有X1,X2,X3,X4,X5,X6,X7（其中，X1,X2,X3,X4,X5是1到35的整数，包含1和35；X6,X7是1到12的整数，包含1和12）的N组数据的csv文件，设计深层且表达能力强的transformer深度学习网络（参数量10亿，单个特征使用多头注意力），预测N+1组X1,X2,X3,X4,X5,X6,X7；画出训练模型的loss曲线以及X1,X2,X3,X4,X5,X6,X7的趋势走向图，使用多cuda设备并行训练，动态学习率优化策略，保存最优模型，使用pytorch框架，给出完整的 代码实现
@@ -22,5 +22,6 @@ there are N goups data X1, X2, X3, X4, X5, X6, X7 locally (X1, X2, X3, X4, X5 ar
 ### caption5
 Choose 5 integers from 1 to 35 each time (including 1 and 35), the order of the 5 numbers can be combined arbitrarily, it is known that there are N times of historical data locally and save them locally in CSV format (no table head), please use the method of deep learning to learn the probability distribution of N times historical data, generate the possible 5 integers of the N+1th time and give the corresponding confidence; use the condition that the 5 numbers are disordered Use the corresponding data enhancement method, use python language, pytorch framework, use multiple cuda devices for training, draw the loss curve of the model on the training set and verification set, and give a complete code implementation
 
-
+### caption6
+Choose 5 integers from 1 to 35 each time (including 1 and 35), the order of the 5 numbers can be combined arbitrarily, it is known that there are N sets of historical data locally and they are saved locally in CSV format (no table head), please use the latest deep learning method transformer to learn the probability distribution of N times historical data, and generate the N+1th group of 5 possible 5 integers between 1 and 35 including 1 and 35 and print to terminal; Use the corresponding data enhancement method because use the 5 numbers under unordered conditions, use python language, pytorch framework, use multiple cuda devices for training, draw the loss curve of the model on the training set and verification set, print to total params, and give a complete code implementation
 
