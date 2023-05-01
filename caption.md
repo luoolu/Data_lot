@@ -55,5 +55,3 @@ Choose 5 integers from 1 to 35 each time (including 1 and 35), the order of the 
 
 
 
-
-
