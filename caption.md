@@ -25,3 +25,18 @@ Choose 5 integers from 1 to 35 each time (including 1 and 35), the order of the 
 ### caption6
 Choose 5 integers from 1 to 35 each time (including 1 and 35), the order of the 5 numbers can be combined arbitrarily, it is known that there are N sets of historical data locally and they are saved locally in CSV format (no table head), please use the latest deep learning method transformer to learn the probability distribution of N times historical data, and generate the N+1th group of 5 possible 5 integers between 1 and 35 including 1 and 35 and print to terminal; Use the corresponding data enhancement method because use the 5 numbers under unordered conditions, use python language, pytorch framework, use multiple cuda devices for training, draw the loss curve of the model on the training set and verification set, print to total params, and give a complete code implementation
 
+
+## 中文描述2
+每次都从1到35之间选5个整数（包含1和35），5个数之间的顺序可以任意组合，已知本地有0到2412组历史数据并以CSV格式保存在本地（无表头，第一列是序号），请用深度学习的方法来学习2412组历史数据的概率分布，生成多组第2413组的可能的5个整数并给出对应的置信度；因为5个数之间是无序的，使用该条件并利用对应的数据增强策略让模型的鲁棒性更高，使用python语言、pytorch框架，使用多个cuda设备训练，画出模型在训练集和验证集上的loss曲线，给出完整的代码实现
+
+### caption7
+Choose 5 integers from 1 to 35 each time (including 1 and 35), the order of the 5 numbers can be combined arbitrarily, it is known that there are 0 to 2412 sets of historical data and save them locally in CSV format (no table head, the first column is the serial number); please use the deep learning method of the multi-head attention mechanism to learn the probability distribution of 2412 sets of historical data, generate 5 sets of possible 5 integers in the 2413th set and give the corresponding confidence; because The 5 numbers are out of order, use this condition and use the corresponding data enhancement strategy to make the model more robust, use python language, pytorch framework, use multiple cuda devices for training, draw the model in the training set and The loss curve on the verification set, giving a complete code implementation
+
+## 中文描述3
+每次都从1到35之间选5个整数（包含1和35），5个数之间的顺序可以任意组合，已知有0到2412组历史数据并以CSV格式保存在本地（无表头，第一列是序号）；请用多头注意力机制的深度学习方法来学习2412组历史数据的概率分布，用从历史数据中学到的最优模型生成多组第2413组的可能的5个整数并打印；因为5个数之间是无序的，使用该条件并利用对应的数据增强策略让模型的鲁棒性更高，使用python语言、pytorch框架，使用多个cuda设备训练，使用目前最好的优化器和训练策，训练的时候打印loss，给出完整的代码实现
+
+### caption8
+Choose 5 integers from 1 to 35 each time (including 1 and 35), the order of the 5 numbers can be combined arbitrarily, it is known that there are 0 to 2412 sets of historical data and save them locally in CSV format (no table head, the first column is the serial number); please use the deep learning method of the multi-head attention mechanism to learn the probability distribution of the 2412 sets of historical data, and use the optimal model learned from the historical data to generate multiple sets of possible 5 sets of the 2413th set Integer and print; because the 5 numbers are out of order, use this condition and use the corresponding data enhancement strategy to make the model more robust, use python language, pytorch framework, use multiple cuda devices for training, use the current The best optimizer and training strategy, print loss during training, and give a complete code implementation
+
+### role
+Now you are super programmer, AI scientist, super python scientist, super deep learning network designer, Scientist in Probability，pytorch framework scientist, Math scientist,Top Technology Application Expert 
