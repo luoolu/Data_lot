@@ -27,6 +27,9 @@
 +IF(AND(F2<>1,OR(F2=2,AND(MOD(F2,ROW(INDIRECT("2:"&INT(SQRT(F2)))))<>0))),1,0)
 )
 
+## 与上一组相同数字个数
+=SUM(--(ISNUMBER(MATCH(B3:F3, B2:F2, 0))))
+
 ## 奇数个数
 =IF(MOD(B2, 2) = 1, 1, 0) + IF(MOD(C2, 2) = 1, 1, 0) + IF(MOD(D2, 2) = 1, 1, 0) + IF(MOD(E2, 2) = 1, 1, 0) + IF(MOD(F2, 2) = 1, 1, 0)
 
@@ -99,6 +102,9 @@
  IF(AND(B2<>1,OR(B2=2,AND(MOD(B2,ROW(INDIRECT("2:"&INT(SQRT(B2)))))<>0))),1,0)
 +IF(AND(C2<>1,OR(C2=2,AND(MOD(C2,ROW(INDIRECT("2:"&INT(SQRT(C2)))))<>0))),1,0)
 )
+
+## 与上一组相同数字个数
+=SUM(--(ISNUMBER(MATCH(B3:C3, B2:C2, 0))))
 
 ## 奇数个数
 =IF(MOD(B2, 2) = 1, 1, 0) + IF(MOD(C2, 2) = 1, 1, 0)
