@@ -47,13 +47,22 @@ Now you are super programmer, top AI Application scientist, top deep learning ne
 ### role2
 Now you are top programmer, top python scientist,top AI Application scientist, top deep learning network designer, top Scientist in Probability，top pytorch framework scientist, top Math scientist,Top Technology Application Expert 
 
+### role3
+Now you are top programmer, top python scientist,top AI Application scientist, top deep learning network designer, top Scientist in Probability，top pytorch framework scientist, top Math scientist,Top Technology Application Expert;Next, i will give you a task ,you need to handle my task with latest and most effective method
+
 ## 中文描述4
 每次都从1到35之间选5个整数（包含1和35），5个数之间的顺序可以任意组合，已知有0到2412组历史数据并以CSV格式保存在本地（无表头，第一列是序号）；请用最有效的方法来学习2412组历史数据的概率分布特征h和高维非线性规律，并使用从历史数据中学到的最优模型生成多组第2413组的可能的5个整数并打印；因为5个数之间是无序的，使用该条件并利用对应的数据增强策略让模型的鲁棒性更高，使用python语言、pytorch框架，使用多个cuda设备训练，使用目前最好的优化器和训练策，训练的时候打印loss，给出完整的代码实现
 
 ### caption9
 Choose 5 integers from 1 to 35 each time (including 1 and 35), the order of the 5 numbers can be combined arbitrarily, it is known that there are 0 to 2412 sets of historical data and save them locally in CSV format (no table head, the first column is the serial number); please use the most effective method to learn the probability distribution characteristics h and high-dimensional nonlinear laws of the 2412 sets of historical data, and use the optimal model learned from the historical data to generate multiple sets of possible 2413 sets 5 integers and print them; because the 5 numbers are out of order, use this condition and use the corresponding data enhancement strategy to make the model more robust, use python language, pytorch framework, and use multiple cuda devices for training , use the current best optimizer and training strategy, print loss during training, and give a complete code implementation
 
-
+### caption 10
+Date	q1	q2	q3	q4	q5	h1	h2	qSum	Maximum spacing	Minimum spacing	polar distance	prime_num	Composite_num	mean	neibor_num	same_before_num	old_num	even_num	remainder_2	remainder_3	remainder_4	remainder_5	remainder_6	remainder_7	remainder_8	remainder_9	remainder_10	remainder_11	remainder_12	remainder_13	remainder_14	remainder_15	remainder_16	remainder_17	remainder_18	remainder_19	remainder_20	remainder_21	remainder_22	remainder_23	remainder_24	remainder_25	remainder_26	remainder_27	remainder_28	remainder_29	remainder_30	remainder_31	remainder_32	remainder_33	remainder_34	remainder_35
+2007/5/30	22	24	29	31	35	4	11	141	5	2	13	2	3	28.2	0	0	3	2	2	1	1	1	1	1	1	0	0	1	1	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	1	0	1	0	0	0	1
+2007/6/2	15	22	31	34	35	5	12	137	9	1	20	1	4	27.4	1	3	3	2	2	1	0	2	0	1	0	0	0	1	0	0	0	1	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	1	1
+2007/6/4	3	4	18	23	32	1	6	80	14	1	29	1	4	16	1	0	2	3	3	2	2	0	1	0	1	1	0	0	0	0	0	0	1	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0
+2007/6/6	6	10	16	17	25	2	4	74	8	1	19	1	4	14.8	1	0	2	3	3	1	1	2	1	0	1	0	1	0	0	0	0	0	1	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0
+this is my local excel first 5 rows including header, here are thousands of data, my target is to predict next q1,q2,q3,q4 and q5(q1~q5 are 1~35 int,including 1 and 35, and they are disorder) by  thousands of historical data with relevant features; You need to build the most effective deep learning network to learn q1n,q2n,q3n,q4n,q5n and other related features to predict possible q1n+1,q2+1,q3+1,q4+1,q5+1;use python language, pytorch framework, and use multiple cuda devices for training , use the current best optimizer and training strategy, print loss during training,  Draw the trend line chart of q1, q2, q3, q4, q5 in the past 30 periods and the predicted data of q1, q2, q3, q4, q5 in the next period and give a complete code implementation
 
 
 
