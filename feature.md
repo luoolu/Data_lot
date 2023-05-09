@@ -133,9 +133,71 @@
 =IF(MOD(B2, 15) = 0, 1, 0) + IF(MOD(C2, 15) = 0, 1, 0)
 =IF(MOD(B2, 16) = 0, 1, 0) + IF(MOD(C2, 16) = 0, 1, 0)
 
+————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+# SSQ 6 red
+## 和值计算公式
+=SUM(B2:G2)
 
+## 最大间距
+=MAX(ABS(B2 - C2), ABS(C2 - D2), ABS(D2 - E2), ABS(E2 - F2), ABS(F2 - G2))
 
+## 最小间距
+=MIN(ABS(B2 - C2), ABS(C2 - D2), ABS(D2 - E2), ABS(E2 - F2), ABS(F2 - G2))
 
+## 极值
+=MAX(B2, C2, D2, E2, F2, G2) - MIN(B2, C2, D2, E2, F2, G2)
+
+## 质数个数
+=IF(AND(B2<>1,OR(B2=2,AND(MOD(B2,ROW(INDIRECT("2:"&INT(SQRT(B2)))))<>0))),1,0)
++IF(AND(C2<>1,OR(C2=2,AND(MOD(C2,ROW(INDIRECT("2:"&INT(SQRT(C2)))))<>0))),1,0)
++IF(AND(D2<>1,OR(D2=2,AND(MOD(D2,ROW(INDIRECT("2:"&INT(SQRT(D2)))))<>0))),1,0)
++IF(AND(E2<>1,OR(E2=2,AND(MOD(E2,ROW(INDIRECT("2:"&INT(SQRT(E2)))))<>0))),1,0)
++IF(AND(F2<>1,OR(F2=2,AND(MOD(F2,ROW(INDIRECT("2:"&INT(SQRT(F2)))))<>0))),1,0)
++IF(AND(F2<>1,OR(F2=2,AND(MOD(F2,ROW(INDIRECT("2:"&INT(SQRT(G2)))))<>0))),1,0)
+
+## 合数个数
+=6 - (
+ IF(AND(B2<>1,OR(B2=2,AND(MOD(B2,ROW(INDIRECT("2:"&INT(SQRT(B2)))))<>0))),1,0)
++IF(AND(C2<>1,OR(C2=2,AND(MOD(C2,ROW(INDIRECT("2:"&INT(SQRT(C2)))))<>0))),1,0)
++IF(AND(D2<>1,OR(D2=2,AND(MOD(D2,ROW(INDIRECT("2:"&INT(SQRT(D2)))))<>0))),1,0)
++IF(AND(E2<>1,OR(E2=2,AND(MOD(E2,ROW(INDIRECT("2:"&INT(SQRT(E2)))))<>0))),1,0)
++IF(AND(F2<>1,OR(F2=2,AND(MOD(F2,ROW(INDIRECT("2:"&INT(SQRT(F2)))))<>0))),1,0)
++IF(AND(F2<>1,OR(F2=2,AND(MOD(F2,ROW(INDIRECT("2:"&INT(SQRT(G2)))))<>0))),1,0)
+)
+
+## 与上一组相同数字个数
+=SUM(--(ISNUMBER(MATCH(B3:G3, B2:G2, 0))))
+
+## 奇数个数
+=IF(MOD(B2, 2) = 1, 1, 0) + IF(MOD(C2, 2) = 1, 1, 0) + IF(MOD(D2, 2) = 1, 1, 0) + IF(MOD(E2, 2) = 1, 1, 0) + IF(MOD(F2, 2) = 1, 1, 0) + IF(MOD(G2, 2) = 1, 1, 0)
+
+## 偶数个数
+=IF(MOD(B2, 2) = 0, 1, 0) + IF(MOD(C2, 2) = 0, 1, 0) + IF(MOD(D2, 2) = 0, 1, 0) + IF(MOD(E2, 2) = 0, 1, 0) + IF(MOD(F2, 2) = 0, 1, 0) + IF(MOD(G2, 2) = 0, 1, 0)
+
+## 均值
+=AVERAGE(B2, C2, D2, E2, F2, G2)
+
+## 相邻个数
+=(IF(ABS(B2-C2)=1, 1, 0) + IF(ABS(C2-D2)=1, 1, 0) + IF(ABS(D2-E2)=1, 1, 0) + IF(ABS(E2-F2)=1, 1, 0) + IF(ABS(F2-G2)=1, 1, 0) + IF(ABS(G2-B2)=1, 1, 0))
+
+## 2-17余数计算公式
+
+=IF(MOD(B2, 2) = 0, 1, 0) + IF(MOD(C2, 2) = 0, 1, 0) + IF(MOD(D2, 2) = 0, 1, 0) + IF(MOD(E2, 2) = 0, 1, 0) + IF(MOD(F2, 2) = 0, 1, 0) + IF(MOD(G2, 2) = 0, 1, 0)
+=IF(MOD(B2, 3) = 0, 1, 0) + IF(MOD(C2, 3) = 0, 1, 0) + IF(MOD(D2, 3) = 0, 1, 0) + IF(MOD(E2, 3) = 0, 1, 0) + IF(MOD(F2, 3) = 0, 1, 0) + IF(MOD(G2, 3) = 0, 1, 0)
+=IF(MOD(B2, 4) = 0, 1, 0) + IF(MOD(C2, 4) = 0, 1, 0) + IF(MOD(D2, 4) = 0, 1, 0) + IF(MOD(E2, 4) = 0, 1, 0) + IF(MOD(F2, 4) = 0, 1, 0) + IF(MOD(G2, 4) = 0, 1, 0)
+=IF(MOD(B2, 5) = 0, 1, 0) + IF(MOD(C2, 5) = 0, 1, 0) + IF(MOD(D2, 5) = 0, 1, 0) + IF(MOD(E2, 5) = 0, 1, 0) + IF(MOD(F2, 5) = 0, 1, 0) + IF(MOD(G2, 5) = 0, 1, 0)
+=IF(MOD(B2, 6) = 0, 1, 0) + IF(MOD(C2, 6) = 0, 1, 0) + IF(MOD(D2, 6) = 0, 1, 0) + IF(MOD(E2, 6) = 0, 1, 0) + IF(MOD(F2, 6) = 0, 1, 0) + IF(MOD(G2, 6) = 0, 1, 0)
+=IF(MOD(B2, 7) = 0, 1, 0) + IF(MOD(C2, 7) = 0, 1, 0) + IF(MOD(D2, 7) = 0, 1, 0) + IF(MOD(E2, 7) = 0, 1, 0) + IF(MOD(F2, 7) = 0, 1, 0) + IF(MOD(G2, 7) = 0, 1, 0)
+=IF(MOD(B2, 8) = 0, 1, 0) + IF(MOD(C2, 8) = 0, 1, 0) + IF(MOD(D2, 8) = 0, 1, 0) + IF(MOD(E2, 8) = 0, 1, 0) + IF(MOD(F2, 8) = 0, 1, 0) + IF(MOD(G2, 8) = 0, 1, 0)
+=IF(MOD(B2, 9) = 0, 1, 0) + IF(MOD(C2, 9) = 0, 1, 0) + IF(MOD(D2, 9) = 0, 1, 0) + IF(MOD(E2, 9) = 0, 1, 0) + IF(MOD(F2, 9) = 0, 1, 0) + IF(MOD(G2, 9) = 0, 1, 0)
+=IF(MOD(B2, 10) = 0, 1, 0) + IF(MOD(C2, 10) = 0, 1, 0) + IF(MOD(D2, 10) = 0, 1, 0) + IF(MOD(E2, 10) = 0, 1, 0) + IF(MOD(F2, 10) = 0, 1, 0) + IF(MOD(G2, 10) = 0, 1, 0)
+=IF(MOD(B2, 11) = 0, 1, 0) + IF(MOD(C2, 11) = 0, 1, 0) + IF(MOD(D2, 11) = 0, 1, 0) + IF(MOD(E2, 11) = 0, 1, 0) + IF(MOD(F2, 11) = 0, 1, 0) + IF(MOD(G2, 11) = 0, 1, 0)
+=IF(MOD(B2, 12) = 0, 1, 0) + IF(MOD(C2, 12) = 0, 1, 0) + IF(MOD(D2, 12) = 0, 1, 0) + IF(MOD(E2, 12) = 0, 1, 0) + IF(MOD(F2, 12) = 0, 1, 0) + IF(MOD(G2, 12) = 0, 1, 0)
+=IF(MOD(B2, 13) = 0, 1, 0) + IF(MOD(C2, 13) = 0, 1, 0) + IF(MOD(D2, 13) = 0, 1, 0) + IF(MOD(E2, 13) = 0, 1, 0) + IF(MOD(F2, 13) = 0, 1, 0) + IF(MOD(G2, 13) = 0, 1, 0)
+=IF(MOD(B2, 14) = 0, 1, 0) + IF(MOD(C2, 14) = 0, 1, 0) + IF(MOD(D2, 14) = 0, 1, 0) + IF(MOD(E2, 14) = 0, 1, 0) + IF(MOD(F2, 14) = 0, 1, 0) + IF(MOD(G2, 14) = 0, 1, 0)
+=IF(MOD(B2, 15) = 0, 1, 0) + IF(MOD(C2, 15) = 0, 1, 0) + IF(MOD(D2, 15) = 0, 1, 0) + IF(MOD(E2, 15) = 0, 1, 0) + IF(MOD(F2, 15) = 0, 1, 0) + IF(MOD(G2, 15) = 0, 1, 0)
+=IF(MOD(B2, 16) = 0, 1, 0) + IF(MOD(C2, 16) = 0, 1, 0) + IF(MOD(D2, 16) = 0, 1, 0) + IF(MOD(E2, 16) = 0, 1, 0) + IF(MOD(F2, 16) = 0, 1, 0) + IF(MOD(G2, 16) = 0, 1, 0)
+=IF(MOD(B2, 17) = 0, 1, 0) + IF(MOD(C2, 17) = 0, 1, 0) + IF(MOD(D2, 17) = 0, 1, 0) + IF(MOD(E2, 17) = 0, 1, 0) + IF(MOD(F2, 17) = 0, 1, 0) + IF(MOD(G2, 17) = 0, 1, 0)
 
 
 
