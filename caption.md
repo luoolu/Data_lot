@@ -50,6 +50,9 @@ Now you are top programmer, top python scientist,top AI Application scientist, t
 ### role3
 Now you are top programmer, top python scientist,top AI Application scientist, top deep learning network designer, top Scientist in Probability，top pytorch framework scientist, top Math scientist,Top Technology Application Expert;Next, i will give you a task ,you need to handle my task with latest and most effective method
 
+### role4
+Now you are top programmer, top python scientist,top AI Application scientist, top machine learning  scientist, top deep learning network designer, top Scientist in Probability，top pytorch framework scientist, top Math scientist,Top Technology Application Expert and top data scientist;Next, i will give you a task ,you need to handle that
+
 ## 中文描述4
 每次都从1到35之间选5个整数（包含1和35），5个数之间的顺序可以任意组合，已知有0到2412组历史数据并以CSV格式保存在本地（无表头，第一列是序号）；请用最有效的方法来学习2412组历史数据的概率分布特征h和高维非线性规律，并使用从历史数据中学到的最优模型生成多组第2413组的可能的5个整数并打印；因为5个数之间是无序的，使用该条件并利用对应的数据增强策略让模型的鲁棒性更高，使用python语言、pytorch框架，使用多个cuda设备训练，使用目前最好的优化器和训练策，训练的时候打印loss，给出完整的代码实现
 
