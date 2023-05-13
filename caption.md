@@ -67,6 +67,20 @@ Date	q1	q2	q3	q4	q5	h1	h2	qSum	Maximum spacing	Minimum spacing	polar distance	pr
 2007/6/6	6	10	16	17	25	2	4	74	8	1	19	1	4	14.8	1	0	2	3	3	1	1	2	1	0	1	0	1	0	0	0	0	0	1	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0
 this is my local excel first 5 rows including header, here are thousands of data, my target is to predict next q1,q2,q3,q4 and q5(q1~q5 are 1~35 int,including 1 and 35, and they are disorder) by  thousands of historical data with relevant features; You need to build the most effective deep learning network to learn q1n,q2n,q3n,q4n,q5n and other related features to predict possible q1n+1,q2+1,q3+1,q4+1,q5+1;use python language, pytorch framework, and use multiple cuda devices for training , use the current best optimizer and training strategy, print loss during training,  Draw the trend line chart of q1, q2, q3, q4, q5 in the past 30 periods and the predicted data of q1, q2, q3, q4, q5 in the next period and give a complete code implementation
 
+### caption 11
+Date,q1,q2,q3,q4,q5,qSum,Maximum spacing,Minimum spacing,polar distance,prime_num,Composite_num,mean,neibor_num,same_before_num,old_num,even_num,remainder_2,remainder_3,remainder_4,remainder_5,remainder_6,remainder_7,remainder_8,remainder_9,remainder_10,remainder_11,remainder_12,remainder_13,remainder_14,remainder_15,remainder_16,remainder_17,remainder_18,remainder_19,remainder_20,remainder_21,remainder_22,remainder_23,remainder_24,remainder_25,remainder_26,remainder_27,remainder_28,remainder_29,remainder_30,remainder_31,remainder_32,remainder_33,remainder_34,remainder_35
+5/30/2007,22,24,29,31,35,141,5,2,13,2,3,28.2,0,0,3,2,2,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,1,0,1,0,0,0,1
+6/2/2007,15,22,31,34,35,137,9,1,20,1,4,27.4,1,3,3,2,2,1,0,2,0,1,0,0,0,1,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,1
+6/4/2007,3,4,18,23,32,80,14,1,29,1,4,16,1,0,2,3,3,2,2,0,1,0,1,1,0,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0
+6/6/2007,6,10,16,17,25,74,8,1,19,1,4,14.8,1,0,2,3,3,1,1,2,1,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+6/9/2007,1,9,19,20,30,79,10,1,29,1,4,15.8,1,0,3,2,2,2,1,2,1,0,0,1,2,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+above are my local csv table with first 5 rows and header,q1~q5 are forecasting target,In addition to the Date column, the other columns are important features between q1~q5 and q1n~q5n and q1n-1~q5n-1, you need to use Time Series Library to handle to predict next 5 q1~q5 according to the historical data ,, and use multiple cuda devices when training,Draw the trend line chart of q1, q2, q3, q4, q5 in the past 30 periods and the predicted data of q1, q2, q3, q4, q5 in the next period and give a complete code implementation
+
+
+
+
+
+
 
 
 
