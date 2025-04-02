@@ -15,10 +15,10 @@
 主要改进：
 1. 将一次性决策改为逐步决策（顺序选择20个号码），使奖励更细化
 2. 引入额外 EMA 特征，丰富历史信息表示
-3. 延长训练步数（示例中采用 50,000 步，可根据实际情况调整）
+3. 延长训练步数（示例中采用 10,000 步，可根据实际情况调整）
 4. 采用适用于离散动作的多种算法：A2C、PPO、DQN
-5. 多模型集成采用多数投票策略，对各模型独立预测结果进行集成，
-   并在号码数量不足时自动补全，避免索引越界
+5. 多模型集成采用动态加权策略，对各模型独立预测结果进行集成，
+   并在预测时确保每局均产生20个不重复号码
 """
 
 import os
@@ -37,9 +37,9 @@ random.seed(0)
 np.random.seed(0)
 
 # ----------------------------
-# 1. 数据读取与初步处理（确保数据文件路径正确）
+# 1. 数据读取与初步处理（确保数据文件路径正确）ccccccccccc
 # ----------------------------
-data_path = "/home/luolu/PycharmProjects/NeuralForecast/Utils/GetData/data/kl8/kl8_2025-03-31.csv"
+data_path = "/home/luolu/PycharmProjects/NeuralForecast/Utils/GetData/data/kl8/kl8_2025-04-01.csv"
 df = pd.read_csv(data_path, parse_dates=["Date"])
 df = df.sort_values("Date").reset_index(drop=True)
 print(f"Loaded data: {len(df)} days from {df['Date'].min().date()} to {df['Date'].max().date()}.")
@@ -51,7 +51,7 @@ known_draws = {
 }
 
 # 预测结果保存目录
-dst_dir = "/home/luolu/PycharmProjects/NeuralForecast/Results/kl8/20250401/"
+dst_dir = "/home/luolu/PycharmProjects/NeuralForecast/Results/kl8/20250402/"
 if not os.path.exists(dst_dir):
     os.makedirs(dst_dir)
 
@@ -176,7 +176,7 @@ class LotterySequentialEnv(gym.Env):
     def step(self, action):
         # 检查动作是否有效（未重复选择）
         if (action + 1) in self.selected_numbers:
-            # 重复选择则给予负奖励
+            # 重复选择则给予负奖励，但这里步数依然增加以保证训练进程
             reward = -0.5
         else:
             self.selected_numbers.append(action + 1)
@@ -194,12 +194,10 @@ class LotterySequentialEnv(gym.Env):
         return self._get_observation(self.current_date), reward, done, info
 
 # ----------------------------
-# 辅助函数：补全预测号码，确保返回 20 个号码
+# 辅助函数：补全预测号码（若因意外原因不足20个则补全）
 # ----------------------------
-def complete_prediction(pred_set):
-    pred_list = sorted(list(pred_set))
+def complete_prediction(pred_list):
     if len(pred_list) < 20:
-        # 从 1-80 补充缺失的号码
         missing = sorted(set(range(1, 81)) - set(pred_list))
         pred_list.extend(missing[:20 - len(pred_list)])
     return pred_list
@@ -208,7 +206,7 @@ def complete_prediction(pred_set):
 # 3. 训练多种强化学习模型
 # ----------------------------
 # 训练步数（根据实际情况调大）
-TOTAL_TIMESTEPS = 10
+TOTAL_TIMESTEPS = 50000
 
 # 策略网络参数
 policy_kwargs = {
@@ -262,6 +260,7 @@ ppo_avg_hits = evaluate_model(env_eval, model_ppo, df)
 dqn_avg_hits = evaluate_model(env_eval, model_dqn, df)
 print(f"A2C avg hits: {a2c_avg_hits:.2f}, PPO avg hits: {ppo_avg_hits:.2f}, DQN avg hits: {dqn_avg_hits:.2f}")
 
+# 根据验证结果计算动态权重
 total_hits = a2c_avg_hits + ppo_avg_hits + dqn_avg_hits
 w_a2c = a2c_avg_hits / total_hits if total_hits > 0 else 0.33
 w_ppo = ppo_avg_hits / total_hits if total_hits > 0 else 0.33
@@ -274,21 +273,25 @@ print(f"Dynamic weights -> A2C: {w_a2c:.2f}, PPO: {w_ppo:.2f}, DQN: {w_dqn:.2f}"
 def simulate_episode_for_prediction(env, model, future_date):
     env.reset()  # 随机 reset 后覆盖日期
     env.current_date = future_date  # 强制使用预测日期
-    # 实际开奖数据未知时，此处 actual_set 保持为 None
-    env.actual_set = None
-    done = False
-    while not done:
+    env.actual_set = None  # 实际开奖数据未知时
+    # 模拟决策过程，确保得到20个不重复的号码
+    while env.current_step < env.max_steps:
         obs = env._get_observation(env.current_date)
         action, _ = model.predict(obs, deterministic=True)
+        # 如果选择重复，则从剩余可选中随机选一个（避免模型局部错误）
+        if (action + 1) in env.selected_numbers:
+            valid_actions = list(set(range(1, 81)) - set(env.selected_numbers))
+            if valid_actions:
+                action = random.choice(valid_actions) - 1
         obs, reward, done, info = env.step(action)
-    return complete_prediction(set(env.selected_numbers))
+    return complete_prediction(env.selected_numbers)
 
 # 预测日期为最后一期数据之后的下一天
 last_date = df['Date'].max()
 future_date = last_date + pd.Timedelta(days=1)
 env_pred = LotterySequentialEnv(df)
 
-# 分别用各模型模拟一局预测，并确保预测结果补全至20个号码
+# 分别用各模型模拟一局预测（确保各模型预测均为20个不重复号码）
 pred_a2c = simulate_episode_for_prediction(env_pred, model_a2c, future_date)
 pred_ppo = simulate_episode_for_prediction(env_pred, model_ppo, future_date)
 pred_dqn = simulate_episode_for_prediction(env_pred, model_dqn, future_date)
@@ -311,21 +314,23 @@ pred_dqn_csv_path = os.path.join(dst_dir, f"dqn_prediction_TOTAL_TIMESTEPS_{TOTA
 pred_dqn_df.to_csv(pred_dqn_csv_path, index=False)
 print(f"DQN prediction saved to {pred_dqn_csv_path}")
 
-# 多模型集成：采用多数投票策略
-counter = Counter(list(pred_a2c) + list(pred_ppo) + list(pred_dqn))
-ensemble_numbers = [num for num, cnt in counter.items() if cnt >= 2]
-if len(ensemble_numbers) < 20:
-    # 尝试补充：先将未入多数投票的号码补上
-    remaining = [num for num in (set(pred_a2c) | set(pred_ppo) | set(pred_dqn)) if num not in ensemble_numbers]
-    remaining_sorted = sorted(remaining, key=lambda x: counter[x], reverse=True)
-    ensemble_numbers.extend(remaining_sorted)
-if len(ensemble_numbers) < 20:
-    # 若仍不足，补充全范围内未选号码
-    all_numbers = set(range(1, 81))
-    missing = list(all_numbers - set(ensemble_numbers))
-    missing_sorted = sorted(missing)
-    ensemble_numbers.extend(missing_sorted)
-final_pred = sorted(ensemble_numbers[:20])
+# ----------------------------
+# 多模型集成：采用加权集成策略
+# ----------------------------
+ensemble_counter = Counter()
+for num in pred_a2c:
+    ensemble_counter[num] += w_a2c
+for num in pred_ppo:
+    ensemble_counter[num] += w_ppo
+for num in pred_dqn:
+    ensemble_counter[num] += w_dqn
+
+# 选择加权得分最高的20个号码
+final_pred = [num for num, weight in sorted(ensemble_counter.items(), key=lambda x: x[1], reverse=True)]
+if len(final_pred) < 20:
+    missing = sorted(set(range(1, 81)) - set(final_pred))
+    final_pred.extend(missing)
+final_pred = final_pred[:20]
 print(f"预测 {future_date.date()} 的号码: {final_pred}")
 
 # 保存集成预测结果到 CSV
@@ -341,11 +346,10 @@ def simulate_episode_for_date(date, df, model):
     temp_env = LotterySequentialEnv(df)
     temp_env.reset(index=df.index[df['Date'] == date][0])
     temp_env.current_date = date
-    done = False
-    while not done:
+    while temp_env.current_step < temp_env.max_steps:
         obs = temp_env._get_observation(date)
         action, _ = model.predict(obs, deterministic=True)
-        obs, reward, done, info = temp_env.step(action)
+        temp_env.step(action)
     return set(temp_env.selected_numbers)
 
 def ensemble_prediction_for_date(date, df, models):
@@ -353,19 +357,16 @@ def ensemble_prediction_for_date(date, df, models):
     for model in models:
         pred = simulate_episode_for_date(date, df, model)
         predictions.append(pred)
-    counter = Counter(sum([list(pred) for pred in predictions], []))
-    ensemble_nums = [num for num, cnt in counter.items() if cnt >= 2]
+    # 简单多数投票方式：取至少出现2次的号码，若不足则补充
+    counter_votes = Counter(sum([list(pred) for pred in predictions], []))
+    ensemble_nums = [num for num, cnt in counter_votes.items() if cnt >= 2]
     if len(ensemble_nums) < 20:
         remaining = [num for num in (predictions[0] | predictions[1] | predictions[2]) if num not in ensemble_nums]
-        remaining_sorted = sorted(remaining, key=lambda x: counter[x], reverse=True)
-        ensemble_nums.extend(remaining_sorted)
+        ensemble_nums.extend(sorted(remaining, key=lambda x: counter_votes[x], reverse=True))
     if len(ensemble_nums) < 20:
-        all_numbers = set(range(1, 81))
-        missing = list(all_numbers - set(ensemble_nums))
-        missing_sorted = sorted(missing)
-        ensemble_nums.extend(missing_sorted)
-    ensemble_nums = sorted(ensemble_nums[:20])
-    return ensemble_nums
+        missing = sorted(set(range(1, 81)) - set(ensemble_nums))
+        ensemble_nums.extend(missing)
+    return sorted(ensemble_nums[:20])
 
 hit_counts = []
 dates_list = []
@@ -389,6 +390,7 @@ plt.tight_layout()
 hit_trend_path = os.path.join(dst_dir, "hit_trend.png")
 plt.savefig(hit_trend_path)
 print(f"命中趋势图已保存至 {hit_trend_path}")
+
 
 
 
